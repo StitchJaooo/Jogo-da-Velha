@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Jogo da Velha</title>
+    <style>
+        *{ 
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-image: linear-gradient(to left, #df76ff, #b700ff, #fb8dff);
+            color: #ffffff;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        h1{
+            padding: 20px;
+        }
+        .container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .jogo{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 30px;
+            background-color: #ffffff;
+            width: 700px;
+            height: 640px;
+            border-radius: 50px;
+            font-size: 170px;
+        }
+        .jg{
+            transition: .8s;
+            width: 199px;
+            height: 180px;
+            background-color: #d427ff;
+            border-radius: 10px;
+            margin: 0px 15px 0px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .O{
+            background-color: #b500bb;
+            border-radius: 80px;
+        }
+        .X{
+            background-color: #ff84f5f8;
+            border-radius: 80px;
+        }
+        .cima, .baixo{
+            display: flex;
+        }
+        .meio{
+            margin: 30px 0px 30px 0px;
+            display: flex;
+        }
+        .reset {
+            width: 200px;
+            height: 200px;
+            background-color: #fb8dff;
+            color: #ffffff;
+            border-radius: 100px;
+            margin: 50px;
+            font-size: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        ion-icon {
+            color: #ffffff;
+        }
+        #status {
+            font-size: 45px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo da Velha :D</h1>
+        <div id="status"></div>
+        <div class="jogo">
+            <div class="cima">
+                <div class="jg" onclick="Position(0, 0)"></div>
+                <div class="jg" onclick="Position(0, 1)"></div>
+                <div class="jg" onclick="Position(0, 2)"></div>
+            </div>
+            <div class="meio">
+                <div class="jg" onclick="Position(1, 0)"></div>
+                <div class="jg" onclick="Position(1, 1)"></div>
+                <div class="jg" onclick="Position(1, 2)"></div>
+            </div>
+            <div class="baixo">
+                <div class="jg" onclick="Position(2, 0)"></div>
+                <div class="jg" onclick="Position(2, 1)"></div>
+                <div class="jg" onclick="Position(2, 2)"></div>
+            </div>
+        </div>
+        <a href=""><div class="reset"><ion-icon name="reload-outline"></ion-icon></div></a>
+    </div>
+<script>
+let Player = 'X';
+let posicao = [ ['','',''],['','',''],['','',''] ];
+
+function Position(coluna, linha) {
+  if(posicao[coluna][linha] == '') {
+    posicao[coluna][linha] = Player;
+    document.getElementsByClassName('jg')[coluna * 3 + linha].innerHTML = Player;
+    document.getElementsByClassName('jg')[coluna * 3 + linha].classList.add(Player);
+    if (Vitoria(Player)) {
+      document.getElementById('status').innerHTML = "O jogador "+Player+" venceu!";
+      return;
+    }
+    if (Empate()) {
+      document.getElementById('status').innerHTML = "Empate!";
+      Player = 'X';
+      return;
+    }
+    Player = Player == 'X' ? 'O' : 'X';
+    document.getElementById('status').innerHTML = "Vez do jogador "+Player;
+  }
+}
+function Vitoria(player) {
+    for (let i=0; i<3; i++) {
+        if (posicao[i][0] == player && posicao[i][1] == player && posicao[i][2] == player) {
+            return true;
+        }
+        if (posicao[0][i] == player && posicao[1][i] == player && posicao[2][i] == player) {
+            return true;
+        }
+    }
+    if (posicao[0][0] == player && posicao[1][1] == player && posicao[2][2] == player) {
+        return true;
+    }
+    if (posicao[0][2] == player && posicao[1][1] == player && posicao[2][0] == player) {
+        return true;
+    }
+    return false;
+}
+function Empate() {
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (posicao[i][j] == '') {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+</script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
