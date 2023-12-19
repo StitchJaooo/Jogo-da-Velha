@@ -81,6 +81,30 @@
             font-size: 45px;
             margin-top: 10px;
         }
+        @media only screen and (max-device-width: 900px) {
+            h1{
+                margin: 40px;
+                font-size: 60px;
+            }
+            .jogo{
+                width: 90%;
+                height: 900px;
+            }
+            .jg{
+                width: 250px;
+                height: 250px;
+            }
+            .X, .O {
+                border-radius: 90%;
+            }
+            .reset{
+                margin: 80px;
+            }
+            #status {
+                font-size: 55px;
+                margin-top: 25px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -104,7 +128,7 @@
                 <div class="jg" onclick="Position(2, 2)"></div>
             </div>
         </div>
-        <a href=""><div class="reset"><ion-icon name="reload-outline"></ion-icon></div></a>
+        <a href="index.html"><div class="reset"><ion-icon name="reload-outline"></ion-icon></div></a>
     </div>
 <script>
 let Player = 'X';
